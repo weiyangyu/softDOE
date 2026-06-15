@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=64", "wheel", "pybind11>=2.10", "numpy"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "softDOE"
+version = "0.1.0"
+description = "Space-filling one-factor-at-a-time designs."
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [
+  {name = "Wei-Yang Yu and V. Roshan Joseph"}
+]
+dependencies = [
+  "numpy",
+  "scipy",
+  "pyDOE"
+]
+
+[project.optional-dependencies]
+test = ["pytest"]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
