@@ -1,0 +1,9 @@
+include LICENSE README.md CITATION.cff
+recursive-include src/softDOE *.cpp *.hpp *.mm *.metal *.cu *.npy *.txt
+prune tests
+prune tools
+prune benchmarks
+prune examples
+prune docs
+prune .work
+global-exclude .DS_Store *.py[cod] *.so *.pyd *.dll *.dylib

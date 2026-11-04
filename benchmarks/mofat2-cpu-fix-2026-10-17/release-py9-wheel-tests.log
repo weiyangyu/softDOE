@@ -1,0 +1,24 @@
+............s.ss...........ssssssssssssssss............................. [ 18%]
+.................................................s...................... [ 37%]
+......................................ssssss............................ [ 55%]
+.........................sssssss........................................ [ 74%]
+...........................ssssssssssss.........sss..................... [ 93%]
+......sssss................                                              [100%]
+=========================== short test summary info ============================
+SKIPPED [1] tests/test_backends.py:88: CUDA is supported only on Linux.
+SKIPPED [2] tests/test_backends.py:102: could not import 'torch': No module named 'torch'
+SKIPPED [8] tests/test_cuda_batching.py:21: could not import 'torch': No module named 'torch'
+SKIPPED [4] tests/test_cuda_batching.py:30: could not import 'torch': No module named 'torch'
+SKIPPED [4] tests/test_cuda_batching.py:48: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_gpu_ties.py:87: could not import 'torch': No module named 'torch'
+SKIPPED [3] tests/test_native_cuda.py:24: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_native_cuda.py:34: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_native_cuda.py:44: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_native_cuda.py:56: could not import 'torch': No module named 'torch'
+SKIPPED [7] tests/test_q.py:22: No cuda device
+SKIPPED [12] tests/test_q.py:93: No cuda device
+SKIPPED [3] tests/test_q.py:169: could not import 'torch': No module named 'torch'
+SKIPPED [3] tests/test_strict_metal.py:24: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_strict_metal.py:47: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_strict_metal.py:59: could not import 'torch': No module named 'torch'
+334 passed, 53 skipped in 20.54s

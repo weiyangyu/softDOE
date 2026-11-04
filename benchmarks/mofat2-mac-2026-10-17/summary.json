@@ -1,0 +1,35 @@
+{
+  "status": "failed",
+  "case_counts": {
+    "total": 444,
+    "valid": 429,
+    "invalid": 15,
+    "soft": 105,
+    "a_soft": 324,
+    "supplied": 73
+  },
+  "executions": 888,
+  "passed": 885,
+  "failed": 3,
+  "validation_passed": 888,
+  "validation_failed": 0,
+  "agreement_failed": 3,
+  "comparisons": {
+    "same_design": 822,
+    "final_score_divergence": 3,
+    "equivalent_score_different_design": 1,
+    "independent_initializers": 32,
+    "invalid_or_failed": 30
+  },
+  "finished": "2026-10-17T18:01:31.011631+00:00",
+  "analysis_script_sha256": "70857e423b4f3abb04600ac8945cf5fe709e5706e6712f7c474c41f387badd8f",
+  "tolerances": {
+    "coordinate_atol": 2e-14,
+    "score_rtol_cpu_cuda": 1e-08,
+    "score_rtol_metal": 0.003
+  },
+  "results_file": "results.csv",
+  "raw_run_directory": ".work/experiments/mac-full-02",
+  "max_independent_cpu_Q_relative_error": 1.434587683684614e-14,
+  "max_metal_returned_Q_relative_error": 2.5125791517351815e-05
+}

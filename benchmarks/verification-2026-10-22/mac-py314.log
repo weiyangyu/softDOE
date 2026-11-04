@@ -1,0 +1,18 @@
+............s..................ssss..ss..ss............................. [ 18%]
+........................................................................ [ 37%]
+......................................ssssss............................ [ 55%]
+.........................sssssss........................................ [ 74%]
+...........................ssssssssssss................................. [ 93%]
+...........................                                              [100%]
+=========================== short test summary info ============================
+SKIPPED [1] tests/test_backends.py:88: CUDA is supported only on Linux.
+SKIPPED [4] tests/test_cuda_batching.py:21: No CUDA device; host arithmetic is tested separately
+SKIPPED [2] tests/test_cuda_batching.py:30: No CUDA device; host arithmetic is tested separately
+SKIPPED [2] tests/test_cuda_batching.py:48: No CUDA device; host arithmetic is tested separately
+SKIPPED [3] tests/test_native_cuda.py:24: No native CUDA device/build
+SKIPPED [1] tests/test_native_cuda.py:34: No native CUDA device/build
+SKIPPED [1] tests/test_native_cuda.py:44: No native CUDA device/build
+SKIPPED [1] tests/test_native_cuda.py:56: No native CUDA device/build
+SKIPPED [7] tests/test_q.py:22: No cuda device
+SKIPPED [12] tests/test_q.py:93: No cuda device
+353 passed, 34 skipped in 13.41s

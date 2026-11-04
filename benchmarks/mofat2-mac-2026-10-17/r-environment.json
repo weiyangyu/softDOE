@@ -1,0 +1,50 @@
+{
+  "MOFAT": "2.0",
+  "R": "R version 4.5.2 (2025-10-31)",
+  "package_path": "/Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/library/MOFAT",
+  "backends": {
+    "cpu": {
+      "compiled": true,
+      "available": true,
+      "device": "CPU",
+      "reason": null
+    },
+    "metal": {
+      "available": true,
+      "device": "Apple M4",
+      "unified_memory": true,
+      "recommended_max_working_set_bytes": 19069665280,
+      "compiled": true,
+      "reason": null
+    },
+    "cuda": {
+      "compiled": false,
+      "available": false,
+      "device": null,
+      "reason": "CUDA is not supported on macOS; use Metal or CPU.",
+      "helper_abi": null,
+      "toolkit_version": null,
+      "runtime_version": null,
+      "driver_version": null,
+      "compute_capability": null,
+      "helper_path": null
+    }
+  },
+  "dependencies": [
+    {
+      "package": "spacefillr",
+      "version": "0.4.0"
+    },
+    {
+      "package": "SFDesign",
+      "version": "0.1.5"
+    },
+    {
+      "package": "Rcpp",
+      "version": "1.1.1"
+    }
+  ],
+  "functions_md5": "6d702aa7f31281055185dc88b9abf1f7",
+  "session": ["R version 4.5.2 (2025-10-31)", "Platform: aarch64-apple-darwin20", "Running under: macOS Tahoe 26.5.2", "", "Matrix products: default", "BLAS:   /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBLAS.dylib ", "LAPACK: /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.1", "", "locale:", "[1] C.UTF-8/C.UTF-8/C.UTF-8/C/C.UTF-8/C.UTF-8", "", "time zone: America/New_York", "tzcode source: internal", "", "attached base packages:", "[1] stats     graphics  grDevices utils     datasets  methods   base     ", "", "loaded via a namespace (and not attached):", "[1] SLHD_2.1-1       compiler_4.5.2   MOFAT_2.0        tools_4.5.2     ", "[5] spacefillr_0.4.0 Rcpp_1.1.1       jsonlite_2.0.0  "],
+  "thread_environment": ["1", "1", "1", "1"]
+}

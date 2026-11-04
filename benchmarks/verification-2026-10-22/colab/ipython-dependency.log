@@ -1,0 +1,7 @@
+Collecting jedi
+  Downloading jedi-0.20.1-py2.py3-none-any.whl.metadata (23 kB)
+Requirement already satisfied: parso<0.9.0,>=0.8.7 in /usr/local/lib/python3.13/dist-packages (from jedi) (0.8.7)
+Downloading jedi-0.20.1-py2.py3-none-any.whl (4.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.9/4.9 MB 94.7 MB/s eta 0:00:00
+Installing collected packages: jedi
+Successfully installed jedi-0.20.1

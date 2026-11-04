@@ -32,3 +32,9 @@ def test_measure_rejects_bad_shape():
 def test_measure_rejects_bad_response_length():
     with pytest.raises(ValueError, match="same length"):
         measure(np.zeros((6, 2)), np.zeros(5))
+
+
+@pytest.mark.parametrize("y", [np.ones(6, dtype=complex), ["1"]*6, [True]*6])
+def test_measure_rejects_nonreal_or_nonnumeric_responses(y):
+    with pytest.raises(ValueError, match="real numeric"):
+        measure(np.zeros((6, 2)), y)

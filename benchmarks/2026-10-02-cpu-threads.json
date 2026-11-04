@@ -1,0 +1,270 @@
+{
+  "logical_cpus": 48,
+  "affinity_cpus": 48,
+  "cases": [
+    {
+      "threads": 2,
+      "case": "strict",
+      "seconds": [
+        2.143423645999974,
+        2.1332832150001195,
+        2.1384874559998934
+      ],
+      "median_seconds": 2.1384874559998934,
+      "Q": 2.417981260433758e-46,
+      "libraries": [
+        {
+          "user_api": "blas",
+          "internal_api": "openblas",
+          "num_threads": 2,
+          "prefix": "libscipy_openblas",
+          "filepath": "/usr/local/lib/python3.13/dist-packages/scipy.libs/libscipy_openblas-b75cc656.so",
+          "version": "0.3.29.dev",
+          "threading_layer": "pthreads",
+          "architecture": "SkylakeX"
+        },
+        {
+          "user_api": "blas",
+          "internal_api": "openblas",
+          "num_threads": 2,
+          "prefix": "libscipy_openblas",
+          "filepath": "/usr/local/lib/python3.13/dist-packages/numpy.libs/libscipy_openblas64_-f48b354e.so",
+          "version": "0.3.34.106.0",
+          "threading_layer": "pthreads",
+          "architecture": "SkylakeX"
+        }
+      ]
+    },
+    {
+      "threads": 2,
+      "case": "Q",
+      "seconds": [
+        0.7100058919995718,
+        0.709091011000055,
+        0.7090315819996249
+      ],
+      "median_seconds": 0.709091011000055,
+      "Q": 5.270819021731937e-34,
+      "libraries": [
+        {
+          "user_api": "blas",
+          "internal_api": "openblas",
+          "num_threads": 2,
+          "prefix": "libscipy_openblas",
+          "filepath": "/usr/local/lib/python3.13/dist-packages/scipy.libs/libscipy_openblas-b75cc656.so",
+          "version": "0.3.29.dev",
+          "threading_layer": "pthreads",
+          "architecture": "SkylakeX"
+        },
+        {
+          "user_api": "blas",
+          "internal_api": "openblas",
+          "num_threads": 2,
+          "prefix": "libscipy_openblas",
+          "filepath": "/usr/local/lib/python3.13/dist-packages/numpy.libs/libscipy_openblas64_-f48b354e.so",
+          "version": "0.3.34.106.0",
+          "threading_layer": "pthreads",
+          "architecture": "SkylakeX"
+        }
+      ]
+    },
+    {
+      "threads": 4,
+      "case": "strict",
+      "seconds": [
+        2.0870980759991653,
+        2.083695205999902,
+        2.0819820659999095
+      ],
+      "median_seconds": 2.083695205999902,
+      "Q": 2.417981260433758e-46,
+      "libraries": [
+        {
+          "user_api": "blas",
+          "internal_api": "openblas",
+          "num_threads": 4,
+          "prefix": "libscipy_openblas",
+          "filepath": "/usr/local/lib/python3.13/dist-packages/scipy.libs/libscipy_openblas-b75cc656.so",
+          "version": "0.3.29.dev",
+          "threading_layer": "pthreads",
+          "architecture": "SkylakeX"
+        },
+        {
+          "user_api": "blas",
+          "internal_api": "openblas",
+          "num_threads": 4,
+          "prefix": "libscipy_openblas",
+          "filepath": "/usr/local/lib/python3.13/dist-packages/numpy.libs/libscipy_openblas64_-f48b354e.so",
+          "version": "0.3.34.106.0",
+          "threading_layer": "pthreads",
+          "architecture": "SkylakeX"
+        }
+      ]
+    },
+    {
+      "threads": 4,
+      "case": "Q",
+      "seconds": [
+        0.6678854029996728,
+        0.6656567419995554,
+        0.6600173930000892
+      ],
+      "median_seconds": 0.6656567419995554,
+      "Q": 5.270819021731937e-34,
+      "libraries": [
+        {
+          "user_api": "blas",
+          "internal_api": "openblas",
+          "num_threads": 4,
+          "prefix": "libscipy_openblas",
+          "filepath": "/usr/local/lib/python3.13/dist-packages/scipy.libs/libscipy_openblas-b75cc656.so",
+          "version": "0.3.29.dev",
+          "threading_layer": "pthreads",
+          "architecture": "SkylakeX"
+        },
+        {
+          "user_api": "blas",
+          "internal_api": "openblas",
+          "num_threads": 4,
+          "prefix": "libscipy_openblas",
+          "filepath": "/usr/local/lib/python3.13/dist-packages/numpy.libs/libscipy_openblas64_-f48b354e.so",
+          "version": "0.3.34.106.0",
+          "threading_layer": "pthreads",
+          "architecture": "SkylakeX"
+        }
+      ]
+    },
+    {
+      "threads": 8,
+      "case": "strict",
+      "seconds": [
+        2.0604968360003113,
+        2.0627185769999414,
+        2.0572295559995837
+      ],
+      "median_seconds": 2.0604968360003113,
+      "Q": 2.417981260433758e-46,
+      "libraries": [
+        {
+          "user_api": "blas",
+          "internal_api": "openblas",
+          "num_threads": 8,
+          "prefix": "libscipy_openblas",
+          "filepath": "/usr/local/lib/python3.13/dist-packages/scipy.libs/libscipy_openblas-b75cc656.so",
+          "version": "0.3.29.dev",
+          "threading_layer": "pthreads",
+          "architecture": "SkylakeX"
+        },
+        {
+          "user_api": "blas",
+          "internal_api": "openblas",
+          "num_threads": 8,
+          "prefix": "libscipy_openblas",
+          "filepath": "/usr/local/lib/python3.13/dist-packages/numpy.libs/libscipy_openblas64_-f48b354e.so",
+          "version": "0.3.34.106.0",
+          "threading_layer": "pthreads",
+          "architecture": "SkylakeX"
+        }
+      ]
+    },
+    {
+      "threads": 8,
+      "case": "Q",
+      "seconds": [
+        0.633267803000308,
+        0.645163711999885,
+        0.6440631630002827
+      ],
+      "median_seconds": 0.6440631630002827,
+      "Q": 5.270819021731937e-34,
+      "libraries": [
+        {
+          "user_api": "blas",
+          "internal_api": "openblas",
+          "num_threads": 8,
+          "prefix": "libscipy_openblas",
+          "filepath": "/usr/local/lib/python3.13/dist-packages/scipy.libs/libscipy_openblas-b75cc656.so",
+          "version": "0.3.29.dev",
+          "threading_layer": "pthreads",
+          "architecture": "SkylakeX"
+        },
+        {
+          "user_api": "blas",
+          "internal_api": "openblas",
+          "num_threads": 8,
+          "prefix": "libscipy_openblas",
+          "filepath": "/usr/local/lib/python3.13/dist-packages/numpy.libs/libscipy_openblas64_-f48b354e.so",
+          "version": "0.3.34.106.0",
+          "threading_layer": "pthreads",
+          "architecture": "SkylakeX"
+        }
+      ]
+    },
+    {
+      "threads": 16,
+      "case": "strict",
+      "seconds": [
+        2.060539766999682,
+        2.0730184659996667,
+        2.071098186999734
+      ],
+      "median_seconds": 2.071098186999734,
+      "Q": 2.417981260433758e-46,
+      "libraries": [
+        {
+          "user_api": "blas",
+          "internal_api": "openblas",
+          "num_threads": 16,
+          "prefix": "libscipy_openblas",
+          "filepath": "/usr/local/lib/python3.13/dist-packages/scipy.libs/libscipy_openblas-b75cc656.so",
+          "version": "0.3.29.dev",
+          "threading_layer": "pthreads",
+          "architecture": "SkylakeX"
+        },
+        {
+          "user_api": "blas",
+          "internal_api": "openblas",
+          "num_threads": 16,
+          "prefix": "libscipy_openblas",
+          "filepath": "/usr/local/lib/python3.13/dist-packages/numpy.libs/libscipy_openblas64_-f48b354e.so",
+          "version": "0.3.34.106.0",
+          "threading_layer": "pthreads",
+          "architecture": "SkylakeX"
+        }
+      ]
+    },
+    {
+      "threads": 16,
+      "case": "Q",
+      "seconds": [
+        0.634212142999786,
+        0.6346233630001734,
+        0.6232060829997863
+      ],
+      "median_seconds": 0.634212142999786,
+      "Q": 5.270819021731937e-34,
+      "libraries": [
+        {
+          "user_api": "blas",
+          "internal_api": "openblas",
+          "num_threads": 16,
+          "prefix": "libscipy_openblas",
+          "filepath": "/usr/local/lib/python3.13/dist-packages/scipy.libs/libscipy_openblas-b75cc656.so",
+          "version": "0.3.29.dev",
+          "threading_layer": "pthreads",
+          "architecture": "SkylakeX"
+        },
+        {
+          "user_api": "blas",
+          "internal_api": "openblas",
+          "num_threads": 16,
+          "prefix": "libscipy_openblas",
+          "filepath": "/usr/local/lib/python3.13/dist-packages/numpy.libs/libscipy_openblas64_-f48b354e.so",
+          "version": "0.3.34.106.0",
+          "threading_layer": "pthreads",
+          "architecture": "SkylakeX"
+        }
+      ]
+    }
+  ]
+}

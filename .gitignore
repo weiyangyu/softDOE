@@ -5,3 +5,8 @@ dist/
 *.so
 __pycache__/
 .pytest_cache/
+.DS_Store
+.work/
+*.py[cod]
+.ruff_cache/
+experiment-results/

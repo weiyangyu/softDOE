@@ -1,0 +1,9 @@
+{
+  "total": 444,
+  "counts": {
+    "ok": 429,
+    "expected_error": 15
+  },
+  "failed": [],
+  "scope": "Real CUDA invariants, repeatability, no fallback, Python CPU rescoring; R comparisons separate"
+}
