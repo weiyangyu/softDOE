@@ -1,0 +1,10 @@
+/Users/weiyang/Library/CloudStorage/OneDrive-GeorgiaInstituteofTechnology/softDOE/.work/editable-check/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+Checking 
+/Users/weiyang/Library/CloudStorage/OneDrive-GeorgiaInstituteofTechnology/softDO
+E/.work/verification-2026-10-22/release-py39/run-erkz_2ie/artifacts/softdoe-0.2.
+0-cp39-cp39-macosx_10_9_universal2.whl: PASSED
+Checking 
+/Users/weiyang/Library/CloudStorage/OneDrive-GeorgiaInstituteofTechnology/softDO
+E/.work/verification-2026-10-22/release-py39/run-erkz_2ie/artifacts/softdoe-0.2.
+0.tar.gz: PASSED

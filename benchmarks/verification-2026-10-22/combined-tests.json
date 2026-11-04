@@ -1,0 +1,8 @@
+{
+  "total_unique": 387,
+  "passed_on_at_least_one_platform": 387,
+  "uncovered": [],
+  "mac_passed": 353,
+  "cuda_host_passed": 339,
+  "cuda_items_skipped_on_mac": 34
+}

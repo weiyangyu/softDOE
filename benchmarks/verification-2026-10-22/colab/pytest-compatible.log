@@ -1,0 +1,25 @@
+.............s..ssss.................................................... [ 18%]
+.................................................s......ssssssssssss.... [ 37%]
+............................................ssssss...................... [ 55%]
+..................sssssss............................................... [ 74%]
+...............ssssssssssss............................................. [ 93%]
+......sssss................                                              [100%]
+- generated xml file: /content/softdoe-verification-2026-10-22/pytest-compatible.xml -
+=========================== short test summary info ============================
+SKIPPED [1] tests/test_backends.py:88: Metal is supported only on macOS.
+SKIPPED [4] tests/test_cpu_q_parity.py:20: MOFAT 2.0/macOS Accelerate trajectory reference
+SKIPPED [1] tests/test_gpu_ties.py:89: No Apple Metal device available
+SKIPPED [8] tests/test_mofat_live.py:37: live R comparison requires --run-r
+SKIPPED [1] tests/test_mofat_live.py:62: live R comparison requires --run-r
+SKIPPED [1] tests/test_mofat_live.py:68: live R comparison requires --run-r
+SKIPPED [1] tests/test_mofat_live.py:76: live R comparison requires --run-r
+SKIPPED [1] tests/test_mofat_live.py:85: live R comparison requires --run-r
+SKIPPED [2] tests/test_native_metal.py:28: No native Metal build
+SKIPPED [3] tests/test_native_metal.py:46: No native Metal build
+SKIPPED [1] tests/test_native_metal.py:56: No native Metal build
+SKIPPED [7] tests/test_q.py:22: No metal device
+SKIPPED [12] tests/test_q.py:93: No metal device
+SKIPPED [3] tests/test_strict_metal.py:24: No Apple Metal device available
+SKIPPED [1] tests/test_strict_metal.py:47: No Apple Metal device available
+SKIPPED [1] tests/test_strict_metal.py:59: No Apple Metal device available
+339 passed, 48 skipped in 18.33s

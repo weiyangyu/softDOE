@@ -1,0 +1,15 @@
+Processing ./softdoe-0.2.0.tar.gz
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Building wheels for collected packages: softDOE
+  Building wheel for softDOE (pyproject.toml): started
+  Building wheel for softDOE (pyproject.toml): finished with status 'done'
+  Created wheel for softDOE: filename=softdoe-0.2.0-cp313-cp313-linux_x86_64.whl size=3709965 sha256=6513e8f53d4c7a302a42890981a15e9a6c7dd280953b64aaa13774a70ddf68e5
+  Stored in directory: /root/.cache/pip/wheels/96/b3/36/1d522d51c41b322154e2c5b18a5efc4a1e8f665ed792449e86
+Successfully built softDOE
+Installing collected packages: softDOE
+Successfully installed softDOE-0.2.0

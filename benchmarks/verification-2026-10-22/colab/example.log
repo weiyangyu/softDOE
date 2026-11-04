@@ -1,0 +1,25 @@
+SOFT (12 x 2):
+ [[0.96875    0.29910714]
+ [0.03125    0.70089286]
+ [0.29910714 0.03125   ]
+ [0.70089286 0.96875   ]
+ [0.43303571 0.29910714]
+ [0.56696429 0.70089286]
+ [0.83482143 0.03125   ]
+ [0.16517857 0.96875   ]
+ [0.96875    0.83482143]
+ [0.03125    0.16517857]
+ [0.29910714 0.56696429]
+ [0.70089286 0.43303571]]
+Q: 0.0492944241340879 normalized Q: 0.22202347653815327
+Strict SOFT: (12, 2)
+A-SOFT: (20, 2)
+Final augmented Q: 0.004436959565293664 normalized Q: 0.06661050641823453
+Supplied-design augmentation: (20, 2)
+Sobol + corners: (1004, 2)
+Q on the supplied evaluation set: {'Q': 0.04759975581339788, 'normalized_Q': 0.2181736826782687, 'backend_used': 'cpu'}
+Friedman mustar: [ 9.25583984  6.52967854  5.35714286 10.          5.          0.
+  0.          0.          0.          0.        ]
+Friedman total Sobol indices: [0.21255775 0.1080792  0.06388824 0.17809202 0.044523   0.
+ 0.         0.         0.         0.        ]
+Backends: {'cpu': {'compiled': True, 'available': True, 'device': 'CPU', 'reason': None}, 'metal': {'compiled': False, 'available': False, 'device': None, 'reason': 'Metal is supported only on macOS.'}, 'cuda': {'compiled': True, 'available': True, 'device': 'NVIDIA RTX PRO 6000 Blackwell Server Edition', 'reason': None}}

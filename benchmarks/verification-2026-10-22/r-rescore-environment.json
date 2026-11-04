@@ -1,0 +1,6 @@
+{
+  "R": "R version 4.5.2 (2025-10-31)",
+  "MOFAT": "2.0",
+  "package_path": "/Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/library/MOFAT",
+  "mode": "CPU rescoring of exported Colab CUDA designs"
+}

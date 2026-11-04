@@ -1,0 +1,72 @@
+{
+  "started": "2026-10-17T17:49:28.819778+00:00",
+  "command": [
+    "tests/run_mofat_experiments.py",
+    "--profile",
+    "full",
+    "--backends",
+    "cpu",
+    "metal",
+    "--repeats",
+    "3",
+    "--output",
+    ".work/experiments/mac-full-02"
+  ],
+  "python": "3.14.7 (main, Aug  5 2026, 10:29:49) [Clang 21.0.0 (clang-2100.1.1.101)]",
+  "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
+  "machine": "arm64",
+  "softDOE": "0.2.0",
+  "import_path": "/Users/weiyang/Library/CloudStorage/OneDrive-GeorgiaInstituteofTechnology/softDOE/.work/release-venv/lib/python3.14/site-packages/softDOE/__init__.py",
+  "backends": {
+    "cpu": {
+      "compiled": true,
+      "available": true,
+      "device": "CPU",
+      "reason": null
+    },
+    "metal": {
+      "compiled": true,
+      "available": true,
+      "device": "Apple M4",
+      "reason": null
+    },
+    "cuda": {
+      "compiled": false,
+      "available": false,
+      "device": null,
+      "reason": "CUDA is supported only on Linux."
+    }
+  },
+  "packages": {
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "pydoe": "1.5.0"
+  },
+  "threads": 1,
+  "source_sha256": {
+    "THIRD_PARTY_NOTICES.txt": "c5d2fcb011262cc530e958dc4179693221427b69ecf5033b3965171d5a2fea16",
+    "__init__.py": "3c270c6af9969d18f7f1770411a0b0cd4e41856c32dab30b97325d81e52dc066",
+    "_augment.py": "3b8289ac8f88faf5ef4f1fabc0b88c7857668039c50e508d30c05c84e2ff1994",
+    "_backend.py": "aa68b4eaa94f4a886fb0094c993a786f53e9479ea14d189bce67f2e562943721",
+    "_core.cpython-314-darwin.so": "c69739f23b1ac9050be41ead66a6c5060af78940460d56b2c7cb46394237dc20",
+    "_cuda.py": "f6b7cbcccd936113ddf655a580a46ea4a7e3ab5fe6edfbfdcccc0c1cb41a82ef",
+    "_cuda_native.py": "0ef09c3455a35091a96338b5163c9924eee3490ab770a3a5472eda46b207d36c",
+    "_engine.py": "01076aafc57964449a294c9866a3b1f89e6857670479934f135d893d72955ffb",
+    "_measure.py": "766d743180c94eeac095194c82cc7edd7c24e251df8cf1737d1a86764cf8c8a4",
+    "_metal.py": "4ac77029a5762c0df1e5e0ac563a7ab5f89174cc647770205061ee0e934afdcd",
+    "_native.cpython-314-darwin.so": "49dcb02d273331eb6b2e24396b3afbe568fe9af08d042fd20612f2408684067b",
+    "_q.py": "cade7d5e438ce9d159fbd5b16629cef0f6187a0293adb5354123b4134d38537b",
+    "_qmc.py": "13905fba3d2352a3449b3151f66ea996c2efb2486c6de3814f625e919c1a9796",
+    "_sobol_directions.npy": "51d1791ac98a76a4fe307335b8020de1e14caf1157d34010c6ded21c353658a1",
+    "_soft.py": "d54f6a3c9bc294ee70ea66d397835a77ebc86685659ce28157e5c6152111d67f",
+    "_strict.cu": "0169904e9fb8a9d3151de6bfeeb80ed7c6cfb646101db16ca41e963409139280",
+    "_strict.metal": "23685ba057e114fe888633e080bce02a99b1892275bb5e4ac99cf74443b9a3e2",
+    "_strict_metal.py": "8f9a216a6424a9ed3b422efd0461fcfeffcff92fdfe0bca35343d3e21514c5b8",
+    "_validation.py": "7896fc72a4ca39e6df0ac024449209237e3ceb2e269fce0d8c5c819c1d4aedaf"
+  },
+  "script_sha256": {
+    "run_mofat_experiments.py": "4cb6db4f3977d404373cb8764b1861035e1b66a880802ea720434da16615d68b",
+    "experiment_cases.py": "e294c1ffef8346d7a5fafec5119395d05a15eb73afab4971d2052cffc7749459",
+    "reference_experiments.R": "ad61e52caf1f4262d03c5a4990eed2309d9bb486c29254acbfd2392ef76495a0"
+  }
+}

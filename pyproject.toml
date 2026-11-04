@@ -1,30 +1,55 @@
 [build-system]
-requires = ["setuptools>=64", "wheel", "pybind11>=2.10", "numpy"]
+requires = ["setuptools>=77", "wheel", "pybind11>=2.12"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "softDOE"
-version = "0.1.0"
+version = "0.2.0"
 description = "Space-filling one-factor-at-a-time designs."
 readme = "README.md"
 requires-python = ">=3.9"
+license = "MIT AND BSD-2-Clause"
+license-files = ["LICENSE", "src/softDOE/THIRD_PARTY_NOTICES.txt"]
 authors = [
-  {name = "Wei-Yang Yu and V. Roshan Joseph"}
+  {name = "Wei-Yang Yu"},
+  {name = "V. Roshan Joseph"}
+]
+keywords = ["design of experiments", "SOFT", "OFAT", "screening", "space-filling", "Sobol"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: C++",
+  "Topic :: Scientific/Engineering",
+  "Operating System :: MacOS",
+  "Operating System :: POSIX :: Linux",
+  "Operating System :: Microsoft :: Windows"
 ]
 dependencies = [
-  "numpy",
-  "scipy",
-  "pyDOE"
+  "numpy>=1.23",
+  "scipy>=1.9",
+  "pydoe>=0.9.3"
 ]
+
+[project.urls]
+Repository = "https://github.com/weiyangyu/softDOE"
+Issues = "https://github.com/weiyangyu/softDOE/issues"
+Paper = "https://arxiv.org/abs/2606.02533"
+Documentation = "https://github.com/weiyangyu/softDOE#readme"
 
 [project.optional-dependencies]
 test = ["pytest"]
+gpu = ["torch>=2.8"]
 
 [tool.setuptools]
 package-dir = {"" = "src"}
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+softDOE = ["_sobol_directions.npy", "THIRD_PARTY_NOTICES.txt", "*.metal", "*.cu"]
+
+[tool.setuptools.exclude-package-data]
+softDOE = ["*.cpp", "*.hpp", "*.mm"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

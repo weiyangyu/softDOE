@@ -1,0 +1,10 @@
+{
+  "maximum_same_design_Q_relative_error": 1.421577599204407e-14,
+  "maximum_returned_Metal_Q_relative_error": 2.5125791517351815e-05,
+  "comparisons": {
+    "same_design": 825,
+    "equivalent_score_different_design": 1,
+    "independent_initializers": 32,
+    "invalid_or_failed": 30
+  }
+}

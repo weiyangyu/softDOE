@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.37">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -12,10 +12,13 @@
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
-code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -68,40 +71,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="README_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="README_files/libs/quarto-html/anchor.min.js"></script>
 <link href="README_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="README_files/libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="README_files/libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="README_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="README_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="README_files/libs/bootstrap/bootstrap-138a6193a3bd40baf1e627da441a4734.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="README_files/libs/bootstrap/bootstrap-917079515d91bccb85b543faf8aa8bb6.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -116,103 +90,158 @@ window.Quarto = {
 
 <section id="softdoe" class="level1">
 <h1>softDOE</h1>
-<p><code>softDOE</code> is a Python package for constructing space-filling one-factor-at-a-time (SOFT) designs.</p>
-<section id="what-is-included" class="level2">
-<h2 class="anchored" data-anchor-id="what-is-included">What is included</h2>
-<p><code>softDOE</code> currently includes:</p>
-<ul>
-<li><code>soft()</code>: generate SOFT designs.</li>
-<li><code>measure()</code>: compute screening measures.</li>
-</ul>
-<p>Generated designs are returned as NumPy arrays with entries in <code>(0, 1)</code>.</p>
-</section>
+<p><strong>softDOE</strong> creates space-filling one-factor-at-a-time (SOFT) designs for factor screening and surrogate modeling. Use it to generate experimental designs, identify influential factors, and add runs to an existing design.</p>
+<p>The method is described in <a href="https://arxiv.org/abs/2606.02533">Space-Filling One-Factor-At-A-Time Designs</a> by Wei-Yang Yu and V. Roshan Joseph (2026).</p>
 <section id="installation" class="level2">
 <h2 class="anchored" data-anchor-id="installation">Installation</h2>
-<p>Install <code>softDOE</code> from PyPI:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install softDOE</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><code>softDOE</code> requires Python 3.9 or later. The package depends on NumPy, SciPy, and pyDOE, and uses a compiled C++ extension built with pybind11.</p>
+<p>Requires <strong>Python 3.9 or newer</strong>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> pip install <span class="st">"softDOE&gt;=0.2.0"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>NumPy, SciPy, and PyDOE are installed automatically. If a compatible binary wheel is unavailable, installation builds the package from source and requires a C++17 compiler: Xcode Command Line Tools on macOS, GCC or Clang with Python development headers on Linux, or Visual Studio Build Tools on Windows.</p>
+<p>CPU support is included on macOS, Linux, and Windows. Apple Metal acceleration is included on supported Macs and does not require PyTorch. For NVIDIA CUDA on Linux, install a CUDA-enabled build of PyTorch 2.8 or newer using the <a href="https://pytorch.org/get-started/locally/">PyTorch installation instructions</a>.</p>
 </section>
-<section id="quick-example" class="level2">
-<h2 class="anchored" data-anchor-id="quick-example">Quick example</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> softDOE</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># SOFT design</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>design <span class="op">=</span> softDOE.soft(p<span class="op">=</span><span class="dv">10</span>, l<span class="op">=</span><span class="dv">4</span>)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Friedman function</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> friedman(x):</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> np.asarray(x)</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        <span class="dv">10</span> <span class="op">*</span> np.sin(np.pi <span class="op">*</span> x[<span class="dv">0</span>] <span class="op">*</span> x[<span class="dv">1</span>])</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> <span class="dv">20</span> <span class="op">*</span> (x[<span class="dv">2</span>] <span class="op">-</span> <span class="fl">0.5</span>) <span class="op">**</span> <span class="dv">2</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> <span class="dv">10</span> <span class="op">*</span> x[<span class="dv">3</span>]</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> <span class="dv">5</span> <span class="op">*</span> x[<span class="dv">4</span>]</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluate Friedman function at each design point.</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> np.array([friedman(row) <span class="cf">for</span> row <span class="kw">in</span> design])</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Sensitivity measures</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> softDOE.measure(design, y)</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result[<span class="st">"mustar"</span>])</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result[<span class="st">"t"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="quick-start" class="level2">
+<h2 class="anchored" data-anchor-id="quick-start">Quick start</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> softDOE</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> softDOE.soft(p<span class="op">=</span><span class="dv">10</span>, l<span class="op">=</span><span class="dv">4</span>, structure<span class="op">=</span><span class="st">"strict"</span>, seed<span class="op">=</span><span class="dv">123</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>design <span class="op">=</span> result[<span class="st">"design"</span>]</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(design.shape)          <span class="co"># (44, 10): 44 runs for 10 factors</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result[<span class="st">"Q"</span>])          <span class="co"># Design quality</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result[<span class="st">"backend_used"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Each row is an experimental run and each column is a factor. Coordinates lie in <code>(0, 1)</code>; scale each column to the corresponding factor’s range before running your experiment or simulation.</p>
 </section>
-<section id="generating-soft-designs" class="level2">
-<h2 class="anchored" data-anchor-id="generating-soft-designs">Generating SOFT designs</h2>
-<p>Use <code>softDOE.soft()</code> to generate a SOFT design:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>design <span class="op">=</span> softDOE.soft(p<span class="op">=</span><span class="dv">5</span>, l<span class="op">=</span><span class="dv">4</span>, structure<span class="op">=</span><span class="st">"standard"</span>, m<span class="op">=</span><span class="dv">500</span>, seed<span class="op">=</span><span class="dv">123</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Arguments:</p>
+<section id="functions" class="level2">
+<h2 class="anchored" data-anchor-id="functions">Functions</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>soft()</code></td>
+<td>Generate a SOFT design.</td>
+</tr>
+<tr class="even">
+<td><code>a_soft()</code></td>
+<td>Generate an augmented design or add runs to an existing design.</td>
+</tr>
+<tr class="odd">
+<td><code>measure()</code></td>
+<td>Estimate factor importance from a design and its responses.</td>
+</tr>
+<tr class="even">
+<td><code>qmc_generate()</code></td>
+<td>Generate Sobol evaluation points with boundary points.</td>
+</tr>
+<tr class="odd">
+<td><code>Q()</code></td>
+<td>Evaluate the space-filling quality of a design.</td>
+</tr>
+<tr class="even">
+<td><code>backend_info()</code></td>
+<td>Check CPU, Apple Metal, and NVIDIA CUDA availability.</td>
+</tr>
+</tbody>
+</table>
+<section id="generate-a-design-with-soft" class="level3">
+<h3 class="anchored" data-anchor-id="generate-a-design-with-soft">Generate a design with <code>soft()</code></h3>
+<p><code>soft(p, l, structure="standard", m=500, seed=None, backend="auto")</code> generates <code>l * (p + 1)</code> runs.</p>
 <ul>
-<li><code>p</code>: number of factors.</li>
-<li><code>l</code>: number of base runs. This value must be even.</li>
-<li><code>structure</code>: either <code>"standard"</code> or <code>"strict"</code>. The default is <code>"standard"</code>.</li>
-<li><code>m</code>: number of Monte Carlo samples used when evaluating the design objective.</li>
-<li><code>seed</code>: optional seed for reproducible design generation.</li>
+<li><code>p</code>: number of factors, from 2 to 1024.</li>
+<li><code>l</code>: number of base runs; an even integer of at least 2.</li>
+<li><code>structure</code>: <code>"standard"</code> compares each factor block with the base block; <code>"strict"</code> changes one factor between consecutive blocks.</li>
+<li><code>m</code>: number of Sobol evaluation points used in the search, before adding boundary points.</li>
+<li><code>seed</code>: random seed for design initialization.</li>
+<li><code>backend</code>: <code>"auto"</code>, <code>"cpu"</code>, <code>"metal"</code>, or <code>"cuda"</code>.</li>
 </ul>
-<p>The returned design has shape:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>(l <span class="op">*</span> (p <span class="op">+</span> <span class="dv">1</span>), p)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The result is a dictionary containing <code>design</code>, <code>Q</code>, <code>normalized_Q</code>, <code>qmc_size</code>, <code>backend_used</code>, <code>device</code>, and <code>fallback_reason</code>.</p>
 </section>
-<section id="computing-screening-measures" class="level2">
-<h2 class="anchored" data-anchor-id="computing-screening-measures">Computing screening measures</h2>
-<p>Use <code>softDOE.measure()</code> with a design matrix and response vector:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> softDOE.measure(design, y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The response vector <code>y</code> must have one value for each row of the design. The function returns a dictionary with two entries:</p>
-<ul>
-<li><code>mustar</code>: <span class="math inline">\(\mu^*\)</span> measure of Campolongo et al.&nbsp;(2007).</li>
-<li><code>t</code>: total Sobol’ index of Sobol’ (1993).</li>
-</ul>
+<section id="screen-factors-with-measure" class="level3">
+<h3 class="anchored" data-anchor-id="screen-factors-with-measure">Screen factors with <code>measure()</code></h3>
+<p>Evaluate your model at each design row, then pass the responses in the same row order to <code>measure(design, y)</code>. For example:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> softDOE</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>D <span class="op">=</span> softDOE.soft(p<span class="op">=</span><span class="dv">10</span>, l<span class="op">=</span><span class="dv">4</span>, seed<span class="op">=</span><span class="dv">123</span>)[<span class="st">"design"</span>]</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> (</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="dv">10</span> <span class="op">*</span> np.sin(np.pi <span class="op">*</span> D[:, <span class="dv">0</span>] <span class="op">*</span> D[:, <span class="dv">1</span>])</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> <span class="dv">20</span> <span class="op">*</span> (D[:, <span class="dv">2</span>] <span class="op">-</span> <span class="fl">0.5</span>)<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> <span class="dv">10</span> <span class="op">*</span> D[:, <span class="dv">3</span>]</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> <span class="dv">5</span> <span class="op">*</span> D[:, <span class="dv">4</span>]</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>effects <span class="op">=</span> softDOE.measure(D, y)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(effects[<span class="st">"mustar"</span>])     <span class="co"># Mean absolute elementary effects</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(effects[<span class="st">"t"</span>])          <span class="co"># Total Sobol' index estimates</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Both outputs contain one value per factor, in column order. <code>measure()</code> supports standard and strict designs. Keep the original OFAT row ordering; after augmentation, use only the original OFAT rows and their responses for screening. Constant responses give <code>NaN</code> for <code>t</code>.</p>
 </section>
-<section id="testing" class="level2">
-<h2 class="anchored" data-anchor-id="testing">Testing</h2>
-<p>After installing the test dependencies, run the test suite with:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> pytest</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="add-runs-with-a_soft" class="level3">
+<h3 class="anchored" data-anchor-id="add-runs-with-a_soft">Add runs with <code>a_soft()</code></h3>
+<p>Augmentation adds runs for further exploration or surrogate modeling. Create a SOFT design and augment it in one call:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> softDOE</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>augmented <span class="op">=</span> softDOE.a_soft(p<span class="op">=</span><span class="dv">2</span>, l<span class="op">=</span><span class="dv">4</span>, n_aug<span class="op">=</span><span class="dv">8</span>, seed<span class="op">=</span><span class="dv">123</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(augmented[<span class="st">"design"</span>].shape)  <span class="co"># (20, 2): 12 initial runs + 8 new runs</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Or add runs to a design you already have:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> softDOE</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>base <span class="op">=</span> softDOE.soft(p<span class="op">=</span><span class="dv">2</span>, l<span class="op">=</span><span class="dv">4</span>, seed<span class="op">=</span><span class="dv">123</span>)[<span class="st">"design"</span>]</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>extended <span class="op">=</span> softDOE.a_soft(n_aug<span class="op">=</span><span class="dv">8</span>, ofat_design<span class="op">=</span>base)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>new_runs <span class="op">=</span> extended[<span class="st">"design"</span>][<span class="bu">len</span>(base):]</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(new_runs.shape)            <span class="co"># (8, 2)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The original rows are preserved exactly. A supplied design must lie in <code>[0, 1]</code> and have <code>l * (p + 1)</code> rows for an even <code>l &gt;= 2</code> and <code>p &gt;= 2</code>. Its shape determines <code>p</code> and <code>l</code>; initialization arguments are ignored.</p>
+<p><code>n_aug</code> is a positive integer no greater than <code>N</code>, the candidate-pool size (default <code>10000</code>). When generating the initial design, <code>structure</code>, <code>m</code>, and <code>seed</code> have the same roles as in <code>soft()</code>. Added runs need not follow an OFAT structure. The returned dictionary contains <code>design</code>, <code>Q</code>, <code>normalized_Q</code>, <code>backend_used</code>, <code>device</code>, and <code>fallback_reason</code>; scores describe the complete augmented design.</p>
+</section>
+<section id="evaluate-quality-with-q-and-qmc_generate" class="level3">
+<h3 class="anchored" data-anchor-id="evaluate-quality-with-q-and-qmc_generate">Evaluate quality with <code>Q()</code> and <code>qmc_generate()</code></h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> softDOE</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>D <span class="op">=</span> softDOE.soft(p<span class="op">=</span><span class="dv">2</span>, l<span class="op">=</span><span class="dv">4</span>, seed<span class="op">=</span><span class="dv">123</span>)[<span class="st">"design"</span>]</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>points <span class="op">=</span> softDOE.qmc_generate(n<span class="op">=</span><span class="dv">1000</span>, p<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> softDOE.Q(alpha<span class="op">=</span><span class="dv">1</span>, beta<span class="op">=</span><span class="dv">1</span> <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> <span class="dv">4</span>)<span class="op">**</span><span class="dv">2</span>, design<span class="op">=</span>D, qmc<span class="op">=</span>points)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(points.shape)              <span class="co"># (1004, 2): Sobol points plus corners</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(scores[<span class="st">"Q"</span>], scores[<span class="st">"normalized_Q"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Larger <code>Q</code> indicates better space-filling coverage when comparing designs with the <strong>same kernel parameters and evaluation points</strong>. <code>alpha</code> and <code>beta</code> are positive kernel parameters; <code>soft()</code> uses <code>alpha=1</code> and <code>beta=(2*l)**-2</code>. Augmentation uses <code>beta=(2*l+n_aug)**-2</code>. <code>normalized_Q</code> is <code>Q**(1/p)</code>, computed in log space to preserve small values. <code>Q()</code> also returns <code>backend_used</code>.</p>
+<p><code>qmc_generate(n, p, threshold=10)</code> returns a deterministic NumPy array of Sobol points and boundary points. It adds all corners when <code>p &lt;= threshold</code> and representative opposite corners otherwise, removing duplicate rows. The final number of rows can therefore differ from <code>n</code>. To reproduce a <code>soft()</code> score, use the same <code>m</code>, <code>p</code>, and kernel parameters.</p>
+</section>
+</section>
+<section id="cpu-and-gpu-execution" class="level2">
+<h2 class="anchored" data-anchor-id="cpu-and-gpu-execution">CPU and GPU execution</h2>
+<p>The default <code>backend="auto"</code> selects an available Apple Metal backend on macOS or NVIDIA CUDA backend on Linux, otherwise CPU. Pass <code>backend="cpu"</code> to request CPU execution explicitly.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> softDOE</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(softDOE.backend_info())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If a requested GPU is unavailable or execution fails, softDOE falls back to CPU. Check <code>backend_used</code> in the result; <code>soft()</code> and <code>a_soft()</code> also provide <code>fallback_reason</code>. CPU and CUDA use double-precision scoring; Metal uses single-precision scoring. Numerical differences can lead to different designs across backends. For reproducible runs, record the seed, package version, and backend used.</p>
+<p>See <a href="https://github.com/weiyangyu/softDOE/blob/main/examples/mofat_examples.py">more examples</a> for complete workflows.</p>
 </section>
 <section id="citation" class="level2">
 <h2 class="anchored" data-anchor-id="citation">Citation</h2>
-<p>If you use <code>softDOE</code>, please cite:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bibtex code-with-copy"><code class="sourceCode bibtex"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="va">@article</span>{<span class="ot">yu2026space</span>,</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span>={Space-Filling One-Factor-At-A-Time Designs},</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span>={Yu, Wei-Yang and Joseph, V Roshan},</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">journal</span>={arXiv preprint arXiv:2606.02533},</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">year</span>={2026}</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If you use <strong>softDOE</strong> in your research, please cite the package:</p>
+<p>Yu, W.-Y. and Joseph, V. R. (2026). <em>softDOE</em> (version 0.2.0). <a href="https://github.com/weiyangyu/softDOE">Python package</a>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bibtex code-with-copy"><code class="sourceCode bibtex"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">@software{yu2026softdoe,</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">  title   = {softDOE},</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">  author  = {Yu, Wei-Yang and Joseph, V. Roshan},</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">  year    = {2026},</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">  version = {0.2.0},</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">  url     = {https://github.com/weiyangyu/softDOE}</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="references" class="level2">
-<h2 class="anchored" data-anchor-id="references">References</h2>
-<ul>
-<li>Sobol’, I. M. (1993), “On sensitivity estimation for nonlinear mathematical models,” Mathematical Modeling and Computational Experiments, 1, 407-414.</li>
-<li>Campolongo, F., Cariboni, J., and Saltelli, A. (2007), “An effective screening design for sensitivity analysis of large models,” Environmental Modelling and Software, 22, 1509-1518.</li>
-</ul>
-</section>
-<section id="authors" class="level2">
-<h2 class="anchored" data-anchor-id="authors">Authors</h2>
-<p>Wei-Yang Yu and V. Roshan Joseph.</p>
+<section id="acknowledgments" class="level2">
+<h2 class="anchored" data-anchor-id="acknowledgments">Acknowledgments</h2>
+<p>This work is supported by U.S. NSF grant DMS-2310637.</p>
 </section>
 <section id="license" class="level2">
 <h2 class="anchored" data-anchor-id="license">License</h2>
-<p><code>softDOE</code> is licensed under the MIT License.</p>
+<p>softDOE is distributed under the <a href="https://github.com/weiyangyu/softDOE/blob/main/LICENSE">MIT License</a>. Redistributed Sobol data and the index permutation carry additional notices in <a href="https://github.com/weiyangyu/softDOE/blob/main/src/softDOE/THIRD_PARTY_NOTICES.txt">THIRD_PARTY_NOTICES.txt</a>.</p>
 </section>
 </section>
 

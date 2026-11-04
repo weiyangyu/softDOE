@@ -1,0 +1,35 @@
+{
+  "python": "3.13.15 (main, Aug  6 2026, 11:06:22) [GCC 13.3.0]",
+  "platform": "Linux-6.6.122+-x86_64-with-glibc2.39",
+  "package": "/usr/local/lib/python3.13/dist-packages/softDOE/__init__.py",
+  "versions": {
+    "softDOE": "0.2.0",
+    "torch": "2.11.0+cu130",
+    "numpy": "2.5.4",
+    "scipy": "1.16.3",
+    "pydoe": "1.6.0",
+    "pytest": "8.4.2"
+  },
+  "cuda": "13.0",
+  "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+  "backends": {
+    "cpu": {
+      "compiled": true,
+      "available": true,
+      "device": "CPU",
+      "reason": null
+    },
+    "metal": {
+      "compiled": false,
+      "available": false,
+      "device": null,
+      "reason": "Metal is supported only on macOS."
+    },
+    "cuda": {
+      "compiled": true,
+      "available": true,
+      "device": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+      "reason": null
+    }
+  }
+}

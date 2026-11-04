@@ -1,0 +1,249 @@
+[[1]]
+function (p, l, structure = "standard", m = 500L, backend = "auto") 
+{
+    p <- .soft_positive_integer(p, "p", 2L)
+    l <- .soft_positive_integer(l, "l", 2L)
+    if (l%%2L != 0L) {
+        stop("l must be even.", call. = FALSE)
+    }
+    m <- .soft_positive_integer(m, "m")
+    structure <- .soft_structure(structure)
+    prepared <- .soft_prepare(p, l, m, total_levels = 2L * l)
+    selected <- .soft_resolve_backend(backend)
+    fallback_reason <- selected$fallback_reason
+    if (identical(selected$backend, "cpu")) {
+        result <- .soft_optimize_cpu(prepared, structure)
+    }
+    else {
+        result <- tryCatch(.soft_optimize_backend(prepared, structure, 
+            selected$backend), error = function(error) {
+            fallback_reason <<- sprintf("%s backend execution failed during design generation: %s", 
+                selected$backend, conditionMessage(error))
+            .soft_optimize_cpu(prepared, structure)
+        })
+    }
+    backend_used <- if (identical(result$device, "CPU")) 
+        "cpu"
+    else selected$backend
+    log_Q <- as.numeric(result$log_Q)
+    list(design = result$design, Q = exp(log_Q), normalized_Q = exp(log_Q/p), 
+        qmc_size = nrow(prepared$qmc), backend_used = backend_used, 
+        device = result$device %||% selected$device, fallback_reason = fallback_reason)
+}
+<bytecode: 0x1589eb9f8>
+<environment: namespace:MOFAT>
+
+[[2]]
+function (p, l, structure = "standard", n_aug, m = 500L, N = 10000L, 
+    backend = "auto", ofat_design = NULL) 
+{
+    has_ofat_design <- !is.null(ofat_design)
+    if (has_ofat_design) {
+        ofat_design <- .soft_numeric_matrix(ofat_design, "ofat_design")
+        p <- ncol(ofat_design)
+        l <- nrow(ofat_design)/(p + 1L)
+        if (l%%2L != 0L) {
+            stop("The OFAT design should contain l × (p + 1) runs.", 
+                call. = FALSE)
+        }
+        if (any(ofat_design < 0 | ofat_design > 1)) {
+            stop("ofat_design values must lie in [0, 1].", call. = FALSE)
+        }
+    }
+    p <- .soft_positive_integer(p, "p", 2L)
+    l <- .soft_positive_integer(l, "l", 2L)
+    if (l%%2L != 0L) {
+        stop("l must be even.", call. = FALSE)
+    }
+    n_aug <- .soft_positive_integer(n_aug, "n_aug")
+    N <- .soft_positive_integer(N, "N")
+    if (n_aug > N) {
+        stop("n_aug must not exceed N.", call. = FALSE)
+    }
+    total_levels <- 2L * l + n_aug
+    boundary <- 0.25/total_levels
+    candidate_bounds <- c(boundary, 1 - boundary)
+    if (!has_ofat_design) {
+        m <- .soft_positive_integer(m, "m")
+        structure <- .soft_structure(structure)
+        prepared <- .soft_prepare(p, l, m, total_levels = total_levels)
+    }
+    candidates <- spacefillr::generate_sobol_set(n = N, dim = p, 
+        seed = 0)
+    candidates <- matrix(candidates, ncol = p)
+    candidates <- scales::rescale(candidates, to = candidate_bounds, 
+        from = c(0, 1))
+    candidates <- unique(candidates)
+    if (nrow(candidates) < n_aug) {
+        stop("The deduplicated candidate pool contains fewer than n_aug rows.", 
+            call. = FALSE)
+    }
+    selected <- .soft_resolve_backend(backend)
+    fallback_reason <- selected$fallback_reason
+    beta_aug <- 1/total_levels^2
+    nugget <- 1e-06
+    run_workflow <- function(chosen_backend) {
+        if (has_ofat_design) {
+            base_design <- ofat_design
+            base_device <- NULL
+        }
+        else {
+            stage <- "initial design generation"
+            base <- tryCatch(.soft_optimize_backend(prepared, 
+                structure, chosen_backend), error = function(error) {
+                attr(error, "soft_stage") <- stage
+                stop(error)
+            })
+            base_design <- base$design
+            base_device <- base$device
+        }
+        stage <- "augmentation"
+        augmented <- tryCatch(.soft_augment_backend(base_design, 
+            candidates, n_aug, beta_aug, nugget, chosen_backend), 
+            error = function(error) {
+                attr(error, "soft_stage") <- stage
+                stop(error)
+            })
+        list(design = augmented$design, device = augmented$device %||% 
+            base_device)
+    }
+    if (identical(selected$backend, "cpu")) {
+        result <- run_workflow("cpu")
+        backend_used <- "cpu"
+    }
+    else {
+        result <- tryCatch(run_workflow(selected$backend), error = function(error) {
+            stage <- attr(error, "soft_stage") %||% "workflow"
+            fallback_reason <<- sprintf("%s backend execution failed during %s: %s", 
+                selected$backend, stage, conditionMessage(error))
+            run_workflow("cpu")
+        })
+        backend_used <- if (identical(result$device, "CPU")) 
+            "cpu"
+        else selected$backend
+    }
+    if (has_ofat_design && !is.null(colnames(ofat_design))) {
+        colnames(result$design) <- colnames(ofat_design)
+    }
+    list(design = result$design, backend_used = backend_used, 
+        device = result$device %||% selected$device, fallback_reason = fallback_reason)
+}
+<bytecode: 0x158b52be0>
+<environment: namespace:MOFAT>
+
+[[3]]
+function (alpha, beta, design, qmc, backend = "auto") 
+{
+    alpha <- .soft_positive_scalar(alpha, "alpha")
+    beta <- .soft_positive_scalar(beta, "beta")
+    design <- .soft_numeric_matrix(design, "design")
+    qmc <- .soft_numeric_matrix(qmc, "qmc")
+    if (ncol(design) != ncol(qmc)) {
+        stop("design and qmc must have equal column counts.", 
+            call. = FALSE)
+    }
+    selected <- .soft_resolve_backend(backend)
+    backend_used <- selected$backend
+    if (identical(backend_used, "cpu")) {
+        result <- .soft_q_backend("cpu", qmc, design, alpha, 
+            beta)
+    }
+    else {
+        result <- tryCatch(.soft_q_backend(backend_used, qmc, 
+            design, alpha, beta), error = function(error) {
+            backend_used <<- "cpu"
+            .soft_q_backend("cpu", qmc, design, alpha, beta)
+        })
+    }
+    list(Q = as.numeric(result$Q), normalized_Q = as.numeric(result$normalized_Q), 
+        backend_used = backend_used)
+}
+<bytecode: 0x158cf0a38>
+<environment: namespace:MOFAT>
+
+[[4]]
+function (p, l) 
+{
+    L <- factorial(l)
+    if (p < L) {
+        A <- matrix(SFDesign::maximinLHD(l, p)$design, ncol = p)
+        A <- A * l + 0.5
+        a <- NULL
+        b <- NULL
+    }
+    else {
+        a <- p%/%(L)
+        b <- p%%L
+        P_l <- t(gtools::permutations(l, l, 1:l))
+        A1 <- do.call(cbind, replicate(a, P_l, simplify = FALSE))
+        if (b > 0) {
+            A2 <- P_l[, 1:b]
+        }
+        else {
+            A2 = NULL
+        }
+        A <- cbind(A1, A2)
+    }
+    ans <- list(A = A, L = L, quotient = a, mod = b)
+    return(ans)
+}
+<bytecode: 0x149889850>
+<environment: namespace:MOFAT>
+
+[[5]]
+function (p, l, m, total_levels = 2L * l) 
+{
+    qmc <- qmc_generate(m, p)
+    A_info <- A_fun(p, l)
+    x <- 0.25/total_levels
+    levels <- seq(x, 1 - x, length.out = 2L * l)
+    A <- level_trans(A_info$A, l, levels)
+    list(p = p, l = l, m = m, qmc = qmc, A = A, levels = levels, 
+        delta = levels[l + 1L] - levels[1L], factorial_l = A_info$L, 
+        remainder = A_info$mod, quotient = A_info$quotient, alpha = 1, 
+        beta = 1/(2L * l)^2, nugget = 1e-06)
+}
+<bytecode: 0x148e2c400>
+<environment: namespace:MOFAT>
+
+[[6]]
+function (prepared, structure, backend) 
+{
+    if (identical(backend, "cpu")) {
+        return(.soft_optimize_cpu(prepared, structure))
+    }
+    remainder <- if (is.null(prepared$remainder)) 
+        -1L
+    else prepared$remainder
+    quotient <- if (is.null(prepared$quotient)) 
+        -1L
+    else prepared$quotient
+    if (identical(backend, "metal")) {
+        return(soft_opt_metal_rcpp(prepared$qmc, prepared$A, 
+            prepared$p, prepared$l, prepared$delta, remainder, 
+            quotient, structure, prepared$nugget, .soft_metal_kernel_path()))
+    }
+    soft_opt_cuda_rcpp(prepared$qmc, prepared$A, prepared$p, 
+        prepared$l, prepared$delta, remainder, quotient, structure, 
+        prepared$nugget)
+}
+<bytecode: 0x148bb5d28>
+<environment: namespace:MOFAT>
+
+[[7]]
+function (design, candidates, n_aug, beta, nugget, backend) 
+{
+    if (identical(backend, "cpu")) {
+        return(.soft_augment_cpu(design, candidates, n_aug, beta, 
+            nugget))
+    }
+    if (identical(backend, "metal")) {
+        return(soft_augment_metal_backend_rcpp(design, candidates, 
+            n_aug, beta, nugget, .soft_metal_kernel_path()))
+    }
+    soft_augment_cuda_backend_rcpp(design, candidates, n_aug, 
+        beta, nugget)
+}
+<bytecode: 0x148c11330>
+<environment: namespace:MOFAT>
+

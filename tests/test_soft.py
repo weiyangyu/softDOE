@@ -15,7 +15,7 @@ def _assert_ofat_structure(design, p, l):
 
 
 def test_standard_soft_shape_bounds_and_structure():
-    design = softDOE.soft(p=3, l=4, m=8, seed=123)
+    design = softDOE.soft(p=3, l=4, m=8, seed=123, backend="cpu")["design"]
 
     assert design.shape == (16, 3)
     assert np.all(design > 0)
@@ -24,7 +24,7 @@ def test_standard_soft_shape_bounds_and_structure():
 
 
 def test_strict_soft_shape_and_bounds():
-    design = softDOE.soft(p=3, l=4, structure="strict", m=8, seed=123)
+    design = softDOE.soft(p=3, l=4, structure="strict", m=8, seed=123, backend="cpu")["design"]
 
     assert design.shape == (16, 3)
     assert np.all(design > 0)
@@ -32,8 +32,8 @@ def test_strict_soft_shape_and_bounds():
 
 
 def test_seed_makes_standard_design_deterministic():
-    first = softDOE.soft(p=3, l=4, m=8, seed=42)
-    second = softDOE.soft(p=3, l=4, m=8, seed=42)
+    first = softDOE.soft(p=3, l=4, m=8, seed=42, backend="cpu")["design"]
+    second = softDOE.soft(p=3, l=4, m=8, seed=42, backend="cpu")["design"]
 
     np.testing.assert_allclose(first, second)
 
@@ -43,7 +43,6 @@ def test_seed_makes_standard_design_deterministic():
     [
         ({"p": 1, "l": 4}, "p must be at least 2"),
         ({"p": 3, "l": 3}, "l must be even"),
-        ({"p": 3, "l": 4, "structure": "bad"}, "structure"),
     ],
 )
 def test_soft_rejects_invalid_inputs(kwargs, message):

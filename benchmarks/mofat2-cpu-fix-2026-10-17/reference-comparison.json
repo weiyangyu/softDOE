@@ -1,0 +1,8 @@
+{
+  "function_bodies_equal": true,
+  "normalization": "Replace R printed bytecode addresses only; keep function bodies and namespaces unchanged.",
+  "normalized_sha256": "ffe823c59aa1db9d0338efdb7963a96c3c06fceec984a02d179e5895648357a8",
+  "old_file_sha256": "97b6ff45b70dcc2535ee39c774776f3b993d40e550ab0b236b68aa6934ea6a93",
+  "new_file_sha256": "eb5bd97f4122ff54782960d35c52e3595727976cddbe88239bdde478fb141528",
+  "manifest_identical": true
+}

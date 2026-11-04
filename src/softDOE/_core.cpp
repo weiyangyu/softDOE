@@ -3,6 +3,7 @@
 
 #include <pybind11/numpy.h>
 #include <pybind11/pybind11.h>
+#include "_kernel.hpp"
 
 namespace py = pybind11;
 
@@ -13,24 +14,8 @@ using Array = py::array_t<double, py::array::c_style | py::array::forcecast>;
 // Evaluate the MIM correlation kernel between row ia of A and row ib of B.
 double corr_idx(const double* A, py::ssize_t ia, const double* B, py::ssize_t ib,
                 py::ssize_t p, double alpha, double beta) {
-    const double invbeta = 1.0 / beta;
-
-    if (alpha == 1.0) {
-        double c = 1.0;
-        for (py::ssize_t k = 0; k < p; ++k) {
-            const double d = A[ia * p + k] - B[ib * p + k];
-            c *= 1.0 / (1.0 + (d * d) * invbeta);
-        }
-        return c;
-    }
-
-    const double negalpha = -alpha;
-    double logc = 0.0;
-    for (py::ssize_t k = 0; k < p; ++k) {
-        const double d = A[ia * p + k] - B[ib * p + k];
-        logc += negalpha * std::log1p((d * d) * invbeta);
-    }
-    return std::exp(logc);
+    return softdoe::kernel_correlation(A + ia * p, B + ib * p,
+                                       static_cast<int>(p), alpha, beta);
 }
 
 // Validate that a Python/NumPy input is a two-dimensional matrix.
@@ -223,6 +208,26 @@ Array q_matrix(Array qmc, Array X, py::object old_R_obj, py::object new_X_obj,
     return out;
 }
 
+// Log correlations for the Python incremental evaluator when products underflow.
+Array log_q_matrix(Array qmc, Array X, double alpha, double beta) {
+    const auto q_info = qmc.request();
+    const auto x_info = X.request();
+    require_matrix(q_info, "qmc");
+    require_matrix(x_info, "X");
+    if (q_info.shape[1] != x_info.shape[1])
+        throw std::invalid_argument("qmc and X must have the same number of columns.");
+    const auto m = q_info.shape[0], n = x_info.shape[0], p = x_info.shape[1];
+    const auto* q = static_cast<const double*>(q_info.ptr);
+    const auto* x = static_cast<const double*>(x_info.ptr);
+    Array out({n, m});
+    auto values = out.mutable_unchecked<2>();
+    for (py::ssize_t j = 0; j < m; ++j)
+        for (py::ssize_t i = 0; i < n; ++i)
+            values(i, j) = softdoe::kernel_log_correlation(
+                x + i * p, q + j * p, static_cast<int>(p), alpha, beta);
+    return out;
+}
+
 // Register the compiled backend functions exposed to the Python module.
 PYBIND11_MODULE(_core, m) {
     m.doc() = "Compiled correlation kernels for softDOE.";
@@ -235,5 +240,7 @@ PYBIND11_MODULE(_core, m) {
           py::arg("beta") = 1.0);
     m.def("q_matrix", &q_matrix, py::arg("qmc"), py::arg("X"),
           py::arg("old_R") = py::none(), py::arg("new_X") = py::none(),
+          py::arg("alpha") = 1.0, py::arg("beta") = 1.0);
+    m.def("_log_q_matrix", &log_q_matrix, py::arg("qmc"), py::arg("X"),
           py::arg("alpha") = 1.0, py::arg("beta") = 1.0);
 }

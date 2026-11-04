@@ -1,0 +1,42 @@
+{
+  "status": "passed",
+  "source_inputs_verified": 29,
+  "installations": [
+    {
+      "python": "3.14.7",
+      "artifact": "wheel",
+      "result": "334 passed, 53 skipped in 19.46s",
+      "report": "dist/release-checks/run-wjpahnno/report.json"
+    },
+    {
+      "python": "3.14.7",
+      "artifact": "sdist",
+      "result": "334 passed, 53 skipped in 19.74s",
+      "report": "dist/release-checks/run-wjpahnno/report.json"
+    },
+    {
+      "python": "3.9.6",
+      "artifact": "wheel",
+      "result": "334 passed, 53 skipped in 20.54s",
+      "report": "dist/release-checks/run-cr09hhm8/report.json"
+    },
+    {
+      "python": "3.9.6",
+      "artifact": "sdist",
+      "result": "334 passed, 53 skipped in 19.33s",
+      "report": "dist/release-checks/run-cr09hhm8/report.json"
+    }
+  ],
+  "artifacts": "dist/release-cpu-fix-2026-10-17",
+  "checks": [
+    "strict metadata",
+    "package assets",
+    "dependency consistency",
+    "isolated imports",
+    "live MOFAT 2.0 tests",
+    "real Metal",
+    "examples",
+    "README Python blocks",
+    "source/archive/artifact SHA256"
+  ]
+}
